@@ -1,0 +1,26 @@
+{
+
+      "id": "asset-sharing",
+      "name": "Asset Sharing",
+      "type": "Agent as Tool",
+      "status": "Active",
+      "description": "A tool responsible for finding and sharing relevant business assets such as brochures, datasheets, PDFs, case studies, certificates, and other requested documents with the user.",
+      "llmProfile": null,
+      "iconKey": null,
+      "iconColor": null,
+      "iconBgColor": null,
+      "details": {
+        "systemPrompt": {
+          "name": "",
+          "version": "",
+          "lastUpdatedLabel": ""
+        },
+        "promptId": null,
+        "onHandoff": "",
+        "maxTurns": 10,
+        "tags": [],
+        "notes": "",
+        "guardrails": []
+      }
+  
+}

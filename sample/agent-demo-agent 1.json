@@ -1,0 +1,28 @@
+{
+
+    
+      "id": "demo-agent",
+      "name": "Demo Agent",
+      "type": "Sub Agent",
+      "status": "Active",
+      "description": "A specialist agent responsible for handling demo, meeting, booking, scheduling, rescheduling, and CTA-related requests.",
+      "llmProfile": null,
+      "iconKey": null,
+      "iconColor": null,
+      "iconBgColor": null,
+      "details": {
+        "systemPrompt": {
+          "name": "",
+          "version": "",
+          "lastUpdatedLabel": ""
+        },
+        "promptId": null,
+        "onHandoff": "",
+        "maxTurns": 10,
+        "tags": [],
+        "notes": "",
+        "guardrails": []
+      }
+    
+  
+}

@@ -1,0 +1,350 @@
+{
+  "kind": "agentflow.workflow",
+  "version": 1,
+  "exportedAt": "2026-10-22T08:00:00.000Z",
+  "workflow": {
+    "name": "Production Sales & Booking Flow",
+    "description": "Multi-agent sales pipeline with dynamic state, agent-wise LLM profiles, and dynamic structured output schemas."
+  },
+  "nodes": [
+    {
+      "id": "trigger-start",
+      "type": "trigger",
+      "position": { "x": 100, "y": 300 },
+      "data": { "label": "Start", "description": "Entry point for customer chat" },
+      "width": 220,
+      "height": 60
+    },
+    {
+      "id": "end-complete",
+      "type": "end",
+      "position": { "x": 1800, "y": 300 },
+      "data": { "label": "End", "description": "Turn complete — reply returned to user" },
+      "width": 220,
+      "height": 60
+    },
+    {
+      "id": "agent-root-agent",
+      "type": "agent",
+      "position": { "x": 400, "y": 300 },
+      "data": {
+        "label": "Root Agent",
+        "status": "Active",
+        "agentId": "root-agent",
+        "description": "Central orchestrator responsible for identifying user intent, capturing user profile, and delegating to specialist agents.",
+        "llmProfile": "orchestrator-fast"
+      },
+      "width": 240,
+      "height": 260
+    },
+    {
+      "id": "agent-sales-agent",
+      "type": "agent",
+      "position": { "x": 800, "y": 100 },
+      "data": {
+        "label": "Sales Agent",
+        "status": "Active",
+        "agentId": "sales-agent",
+        "description": "Specialist for handling product, service, pricing tiers, and feature inquiries.",
+        "llmProfile": "specialist-standard"
+      },
+      "width": 240,
+      "height": 220
+    },
+    {
+      "id": "agent-negotiation-agent",
+      "type": "agent",
+      "position": { "x": 800, "y": 300 },
+      "data": {
+        "label": "Negotiation Agent",
+        "status": "Active",
+        "agentId": "negotiation-agent",
+        "description": "Specialist for evaluating budget, calculating eligible discounts, and payment terms.",
+        "llmProfile": "specialist-standard"
+      },
+      "width": 240,
+      "height": 220
+    },
+    {
+      "id": "agent-demo-agent",
+      "type": "agent",
+      "position": { "x": 800, "y": 500 },
+      "data": {
+        "label": "Demo Agent",
+        "status": "Active",
+        "agentId": "demo-agent",
+        "description": "Specialist for scheduling live product demos, calendar booking, and CTA confirmation.",
+        "llmProfile": "orchestrator-fast"
+      },
+      "width": 240,
+      "height": 200
+    },
+    {
+      "id": "tool-subscription-search",
+      "type": "tool",
+      "position": { "x": 1200, "y": 150 },
+      "data": {
+        "kind": "Function",
+        "label": "subscription_search",
+        "toolId": "subscription-search",
+        "description": "Search available subscription plans, features, and base monthly pricing."
+      },
+      "width": 220,
+      "height": 120
+    },
+    {
+      "id": "tool-calculate-discount",
+      "type": "tool",
+      "position": { "x": 1200, "y": 320 },
+      "data": {
+        "kind": "Function",
+        "label": "calculate_discount",
+        "toolId": "calculate-discount",
+        "description": "Calculate discount percentage based on customer monthly budget and plan tier."
+      },
+      "width": 220,
+      "height": 120
+    },
+    {
+      "id": "tool-book-demo-slot",
+      "type": "tool",
+      "position": { "x": 1200, "y": 480 },
+      "data": {
+        "kind": "Function",
+        "label": "book_demo_slot",
+        "toolId": "book-demo-slot",
+        "description": "Reserve a 30-minute product demonstration slot in the sales team calendar."
+      },
+      "width": 220,
+      "height": 120
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-trigger-to-root",
+      "source": "trigger-start",
+      "target": "agent-root-agent",
+      "type": "animated",
+      "data": { "kind": "flow" }
+    },
+    {
+      "id": "edge-root-to-sales",
+      "source": "agent-root-agent",
+      "target": "agent-sales-agent",
+      "type": "animated",
+      "data": { "kind": "handoff" }
+    },
+    {
+      "id": "edge-root-to-negotiation",
+      "source": "agent-root-agent",
+      "target": "agent-negotiation-agent",
+      "type": "animated",
+      "data": { "kind": "handoff" }
+    },
+    {
+      "id": "edge-root-to-demo",
+      "source": "agent-root-agent",
+      "target": "agent-demo-agent",
+      "type": "animated",
+      "data": { "kind": "handoff" }
+    },
+    {
+      "id": "edge-sales-to-negotiation",
+      "source": "agent-sales-agent",
+      "target": "agent-negotiation-agent",
+      "type": "animated",
+      "data": { "kind": "handoff" }
+    },
+    {
+      "id": "edge-negotiation-to-demo",
+      "source": "agent-negotiation-agent",
+      "target": "agent-demo-agent",
+      "type": "animated",
+      "data": { "kind": "handoff" }
+    },
+    {
+      "id": "edge-sales-tool-search",
+      "source": "agent-sales-agent",
+      "target": "tool-subscription-search",
+      "type": "animated",
+      "data": { "kind": "uses-tool" }
+    },
+    {
+      "id": "edge-negotiation-tool-search",
+      "source": "agent-negotiation-agent",
+      "target": "tool-subscription-search",
+      "type": "animated",
+      "data": { "kind": "uses-tool" }
+    },
+    {
+      "id": "edge-negotiation-tool-discount",
+      "source": "agent-negotiation-agent",
+      "target": "tool-calculate-discount",
+      "type": "animated",
+      "data": { "kind": "uses-tool" }
+    },
+    {
+      "id": "edge-demo-tool-book",
+      "source": "agent-demo-agent",
+      "target": "tool-book-demo-slot",
+      "type": "animated",
+      "data": { "kind": "uses-tool" }
+    },
+    {
+      "id": "edge-root-to-end",
+      "source": "agent-root-agent",
+      "target": "end-complete",
+      "type": "animated",
+      "data": { "kind": "flow" }
+    },
+    {
+      "id": "edge-sales-to-end",
+      "source": "agent-sales-agent",
+      "target": "end-complete",
+      "type": "animated",
+      "data": { "kind": "flow" }
+    },
+    {
+      "id": "edge-negotiation-to-end",
+      "source": "agent-negotiation-agent",
+      "target": "end-complete",
+      "type": "animated",
+      "data": { "kind": "flow" }
+    },
+    {
+      "id": "edge-demo-to-end",
+      "source": "agent-demo-agent",
+      "target": "end-complete",
+      "type": "animated",
+      "data": { "kind": "flow" }
+    }
+  ],
+  "resources": {
+    "llmProfiles": [
+      {
+        "id": "orchestrator-fast",
+        "name": "Fast Orchestrator (GPT-4o Mini)",
+        "provider": "openai",
+        "model": "gpt-4o-mini",
+        "temperature": 0.0,
+        "maxTokens": 1024,
+        "costPer1kInput": 0.00015,
+        "costPer1kOutput": 0.0006
+      },
+      {
+        "id": "specialist-standard",
+        "name": "Sales Specialist (GPT-4o Mini Balanced)",
+        "provider": "openai",
+        "model": "gpt-4o-mini",
+        "temperature": 0.1,
+        "maxTokens": 2048,
+        "costPer1kInput": 0.00015,
+        "costPer1kOutput": 0.0006
+      }
+    ],
+    "prompts": [
+      {
+        "id": "prompt-root-agent",
+        "name": "Root Orchestrator Prompt",
+        "content": "You are the Root Orchestrator of our enterprise sales platform. Welcome the customer warmly. Identify their name and their primary intent (learning about products, asking about pricing/discounts, or booking a demo). When you know their name or intent, call submit_output to capture the data. If the user asks about products, delegate to Sales Agent. If they ask about budget or discounts, delegate to Negotiation Agent. If they want to book a meeting, delegate to Demo Agent."
+      },
+      {
+        "id": "prompt-sales-agent",
+        "name": "Sales Agent Prompt",
+        "content": "You are the Senior Sales Specialist. Help the customer understand our product catalog (CRM Pro, Analytics Suite, Enterprise Growth). Always use subscription_search to retrieve accurate pricing and features before answering. When the customer indicates their product of interest, call submit_output with interested_product. Then suggest discussing budget or discounts with the Negotiation Agent."
+      },
+      {
+        "id": "prompt-negotiation-agent",
+        "name": "Negotiation Agent Prompt",
+        "content": "You are the Pricing & Deals Specialist. Discover the customer's budget in USD. Use calculate_discount to evaluate their discount tier based on their budget and chosen plan. Once you determine their budget and eligible discount, call submit_output to record budget and discount_percent. Then encourage them to lock in the offer by scheduling a demo with the Demo Agent."
+      },
+      {
+        "id": "prompt-demo-agent",
+        "name": "Demo Booking Agent Prompt",
+        "content": "You are the Demo Scheduling Specialist. Ask the customer for their preferred day and time for a 30-minute demonstration. Use book_demo_slot to confirm the appointment. Once confirmed, call submit_output with demo_slot and cta_taken set to true."
+      }
+    ],
+    "tools": [
+      {
+        "id": "subscription-search",
+        "name": "subscription_search",
+        "description": "Search the company's subscription catalog for matching plans, features, and base monthly pricing.",
+        "params": [
+          { "name": "query", "type": "string", "description": "Search keywords such as 'crm', 'analytics', or 'enterprise'", "required": true }
+        ],
+        "code": "def run(query: str) -> str:\n    q = query.lower()\n    plans = {\n        'crm': 'CRM Pro: $99/mo - Lead tracking, automated email campaigns, and pipeline analytics.',\n        'analytics': 'Analytics Suite: $149/mo - Custom dashboards, funnel visualizer, and real-time alerts.',\n        'enterprise': 'Enterprise Suite: $299/mo - Dedicated account manager, SSO, and 24/7 SLA.'\n    }\n    for k, desc in plans.items():\n        if k in q:\n            return desc\n    return 'Plans: CRM Pro ($99/mo), Analytics Suite ($149/mo), Enterprise Suite ($299/mo).'"
+      },
+      {
+        "id": "calculate-discount",
+        "name": "calculate_discount",
+        "description": "Calculate discount percentage and savings based on customer budget.",
+        "params": [
+          { "name": "budget", "type": "number", "description": "Customer monthly budget in USD", "required": true }
+        ],
+        "code": "def run(budget: float) -> str:\n    if budget >= 250:\n        return 'Eligible for 20% annual discount tier.'\n    elif budget >= 150:\n        return 'Eligible for 10% annual discount tier.'\n    return 'Standard monthly pricing applies (5% welcome coupon available).'"
+      },
+      {
+        "id": "book-demo-slot",
+        "name": "book_demo_slot",
+        "description": "Book a demo slot in the calendar system.",
+        "params": [
+          { "name": "preferred_slot", "type": "string", "description": "Preferred day and time (e.g., 'Friday at 2pm')", "required": true }
+        ],
+        "code": "def run(preferred_slot: str) -> str:\n    return f'Demo successfully booked for {preferred_slot}. Confirmation sent via email!'"
+      }
+    ],
+    "agents": [
+      {
+        "id": "root-agent",
+        "name": "Root Agent",
+        "type": "Root Agent",
+        "description": "Central orchestrator for greeting and intent classification.",
+        "llmProfile": "orchestrator-fast",
+        "promptId": "prompt-root-agent",
+        "tools": [],
+        "stateFields": [
+          { "name": "user_name", "type": "string", "required": false, "description": "Customer full or first name" },
+          { "name": "primary_intent", "type": "string", "required": false, "description": "Detected customer goal or inquiry type" }
+        ]
+      },
+      {
+        "id": "sales-agent",
+        "name": "Sales Agent",
+        "type": "Sub Agent",
+        "description": "Specialist agent for catalog and product details.",
+        "llmProfile": "specialist-standard",
+        "promptId": "prompt-sales-agent",
+        "tools": ["subscription-search"],
+        "stateFields": [
+          { "name": "interested_product", "type": "string", "required": false, "description": "Product the customer is inquiring about" }
+        ]
+      },
+      {
+        "id": "negotiation-agent",
+        "name": "Negotiation Agent",
+        "type": "Sub Agent",
+        "description": "Specialist agent for budget and discounts.",
+        "llmProfile": "specialist-standard",
+        "promptId": "prompt-negotiation-agent",
+        "tools": ["subscription-search", "calculate-discount"],
+        "stateFields": [
+          { "name": "budget", "type": "number", "required": false, "description": "Customer stated budget in USD" },
+          { "name": "discount_percent", "type": "number", "required": false, "description": "Discount percentage approved" }
+        ]
+      },
+      {
+        "id": "demo-agent",
+        "name": "Demo Agent",
+        "type": "Sub Agent",
+        "description": "Specialist agent for booking demos.",
+        "llmProfile": "orchestrator-fast",
+        "promptId": "prompt-demo-agent",
+        "tools": ["book-demo-slot"],
+        "stateFields": [
+          { "name": "demo_slot", "type": "string", "required": false, "description": "Confirmed demo day and time" },
+          { "name": "cta_taken", "type": "boolean", "required": false, "description": "Whether customer confirmed the demo booking" }
+        ]
+      }
+    ]
+  }
+}

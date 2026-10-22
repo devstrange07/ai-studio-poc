@@ -1,0 +1,24 @@
+{
+      "id": "negotiation-agent",
+      "name": "Negotiation Agent",
+      "type": "Sub Agent",
+      "status": "Active",
+      "description": "A specialist agent responsible for handling pricing, discounts, budget, affordability, payment terms, and negotiation-related conversations.",
+      "llmProfile": null,
+      "iconKey": null,
+      "iconColor": null,
+      "iconBgColor": null,
+      "details": {
+        "systemPrompt": {
+          "name": "",
+          "version": "",
+          "lastUpdatedLabel": ""
+        },
+        "promptId": null,
+        "onHandoff": "",
+        "maxTurns": 10,
+        "tags": [],
+        "notes": "",
+        "guardrails": []
+      }
+}

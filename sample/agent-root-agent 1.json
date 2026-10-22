@@ -1,0 +1,40 @@
+{
+ 
+    
+      "id": "root-agent",
+      "name": "Root Agent",
+      "type": "Root Agent",
+      "status": "Active",
+      "description": "A Root Agent (Main Orchestrator) is the central agent responsible for understanding the user's intent, maintaining conversation context, applying business rules, and deciding which specialist agent or tool should handle the request. It coordinates the overall conversation flow and delegates tasks to the appropriate handler rather than performing specialist tasks itself.",
+      "llmProfile": null,
+      "iconKey": null,
+      "iconColor": null,
+      "iconBgColor": null,
+      "details": {
+        "systemPrompt": {
+          "name": "",
+          "version": "",
+          "lastUpdatedLabel": ""
+        },
+        "promptId": "root-agent-system",
+        "onHandoff": "",
+        "maxTurns": 10,
+        "tags": [],
+        "notes": "It is the central agent responsible for handoff and others",
+        "guardrails": [
+          {
+            "id": "input-attack",
+            "type": "input",
+            "enabled": false,
+            "promptId": null
+          },
+          {
+            "id": "output-quality",
+            "type": "output",
+            "enabled": false,
+            "promptId": null
+          }
+        ]
+      }
+    
+}

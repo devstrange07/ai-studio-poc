@@ -1,0 +1,379 @@
+{
+  "kind": "agentflow.workflow",
+  "version": 1,
+  "exportedAt": "2026-08-19T13:57:48.121Z",
+  "workflow": {
+    "name": "Main Flow"
+  },
+  "nodes": [
+    {
+      "id": "trigger-1786962852379-1786962852379",
+      "type": "trigger",
+      "position": {
+        "x": 332.93703325160595,
+        "y": 317.3048764428988
+      },
+      "data": {
+        "label": "Start",
+        "description": "Entry point"
+      },
+      "width": 224,
+      "height": 58
+    },
+    {
+      "id": "end-1786962991735-1786962991735",
+      "type": "end",
+      "position": {
+        "x": 1899.3327304289392,
+        "y": 249.73524686000923
+      },
+      "data": {
+        "label": "End",
+        "description": "Turn complete — reply returned to user"
+      },
+      "width": 224,
+      "height": 58
+    },
+    {
+      "id": "agent-root-agent-1786971290188",
+      "type": "agent",
+      "position": {
+        "x": 649.1263601676836,
+        "y": 158.77873502737913
+      },
+      "data": {
+        "label": "Root Agent",
+        "status": "Active",
+        "agentId": "root-agent",
+        "description": "A Root Agent (Main Orchestrator) is the central agent responsible for understanding the user's intent, maintaining conversation context, applying business rules, and deciding which specialist agent or tool should handle the request. It coordinates the overall conversation flow and delegates tasks to the appropriate handler rather than performing specialist tasks itself.",
+        "agentMissing": false
+      },
+      "width": 224,
+      "height": 286
+    },
+    {
+      "id": "agent-sales-agent-1786971307030",
+      "type": "agent",
+      "position": {
+        "x": 1027.3248714724373,
+        "y": -148.02557358114808
+      },
+      "data": {
+        "label": "Sales Agent",
+        "status": "Active",
+        "agentId": "sales-agent",
+        "description": "A specialist agent responsible for handling product, service, company, feature, USP, and general business-related queries, helping users understand the company's offerings and guiding them toward the appropriate next step.",
+        "agentMissing": false
+      },
+      "width": 224,
+      "height": 222
+    },
+    {
+      "id": "agent-demo-agent-1786971399220",
+      "type": "agent",
+      "position": {
+        "x": 1029.1060619410678,
+        "y": 92.99857688313153
+      },
+      "data": {
+        "label": "Demo Agent",
+        "status": "Active",
+        "agentId": "demo-agent",
+        "description": "A specialist agent responsible for handling demo, meeting, booking, scheduling, rescheduling, and CTA-related requests.",
+        "agentMissing": false
+      },
+      "width": 224,
+      "height": 158
+    },
+    {
+      "id": "agent-negotiation-agent-1786971406795",
+      "type": "agent",
+      "position": {
+        "x": 1030.6994400099595,
+        "y": 273.2744390142491
+      },
+      "data": {
+        "label": "Negotiation Agent",
+        "status": "Active",
+        "agentId": "negotiation-agent",
+        "description": "A specialist agent responsible for handling pricing, discounts, budget, affordability, payment terms, and negotiation-related conversations.",
+        "agentMissing": false
+      },
+      "width": 224,
+      "height": 174
+    },
+    {
+      "id": "agent-follow-up-agent-1786971419428",
+      "type": "agent",
+      "position": {
+        "x": 1037.4485770850033,
+        "y": 469.393202963299
+      },
+      "data": {
+        "label": "Follow-up Agent",
+        "status": "Active",
+        "agentId": "follow-up-agent",
+        "description": "A specialist agent responsible for handling requests to contact, message, or follow up with the user at a later time.",
+        "agentMissing": false
+      },
+      "width": 224,
+      "height": 158
+    },
+    {
+      "id": "agent-human-agent-1786971438329",
+      "type": "agent",
+      "position": {
+        "x": 1040.6063640942446,
+        "y": 652.104131396992
+      },
+      "data": {
+        "label": "Human Agent",
+        "status": "Active",
+        "agentId": "human-agent",
+        "description": "A specialist agent responsible for handling explicit requests to connect the user with a human representative or support team.",
+        "agentMissing": false
+      },
+      "width": 224,
+      "height": 158
+    },
+    {
+      "id": "agent-asset-sharing-1786971452714",
+      "type": "agent",
+      "position": {
+        "x": 1359.6666560177812,
+        "y": -145.92506368117017
+      },
+      "data": {
+        "label": "Asset Sharing",
+        "status": "Active",
+        "agentId": "asset-sharing",
+        "description": "A tool responsible for finding and sharing relevant business assets such as brochures, datasheets, PDFs, case studies, certificates, and other requested documents with the user.",
+        "agentMissing": false
+      },
+      "width": 224,
+      "height": 190
+    },
+    {
+      "id": "tool-subscription-search-1787120749756",
+      "type": "tool",
+      "position": {
+        "x": 1373.4854899688307,
+        "y": 97.95451992698986
+      },
+      "data": {
+        "kind": "Function",
+        "label": "subscription_search",
+        "toolId": "subscription-search",
+        "version": "v1",
+        "description": "Search the company's subscription plans for entries matching a query."
+      },
+      "width": 224,
+      "height": 134
+    }
+  ],
+  "edges": [
+    {
+      "id": "reactflow__edge-trigger-1786962852379-1786962852379-agent-root-agent-1786971290188",
+      "source": "trigger-1786962852379-1786962852379",
+      "target": "agent-root-agent-1786971290188",
+      "type": "animated",
+      "data": {
+        "kind": "flow"
+      },
+      "style": {
+        "stroke": "#008300",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-root-agent-1786971290188-agent-sales-agent-1786971307030",
+      "source": "agent-root-agent-1786971290188",
+      "target": "agent-sales-agent-1786971307030",
+      "type": "animated",
+      "data": {
+        "kind": "handoff"
+      },
+      "style": {
+        "stroke": "#4a3aa7",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-root-agent-1786971290188-agent-demo-agent-1786971399220",
+      "source": "agent-root-agent-1786971290188",
+      "target": "agent-demo-agent-1786971399220",
+      "type": "animated",
+      "data": {
+        "kind": "handoff"
+      },
+      "style": {
+        "stroke": "#4a3aa7",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-root-agent-1786971290188-agent-negotiation-agent-1786971406795",
+      "source": "agent-root-agent-1786971290188",
+      "target": "agent-negotiation-agent-1786971406795",
+      "type": "animated",
+      "data": {
+        "kind": "handoff"
+      },
+      "style": {
+        "stroke": "#4a3aa7",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-root-agent-1786971290188-agent-follow-up-agent-1786971419428",
+      "source": "agent-root-agent-1786971290188",
+      "target": "agent-follow-up-agent-1786971419428",
+      "type": "animated",
+      "data": {
+        "kind": "handoff"
+      },
+      "style": {
+        "stroke": "#4a3aa7",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-root-agent-1786971290188-agent-human-agent-1786971438329",
+      "source": "agent-root-agent-1786971290188",
+      "target": "agent-human-agent-1786971438329",
+      "type": "animated",
+      "data": {
+        "kind": "handoff"
+      },
+      "style": {
+        "stroke": "#4a3aa7",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-root-agent-1786971290188-agent-asset-sharing-1786971452714",
+      "source": "agent-root-agent-1786971290188",
+      "target": "agent-asset-sharing-1786971452714",
+      "type": "animated",
+      "data": {
+        "kind": "handoff"
+      },
+      "style": {
+        "stroke": "#4a3aa7",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-root-agent-1786971290188-end-1786962991735-1786962991735",
+      "source": "agent-root-agent-1786971290188",
+      "target": "end-1786962991735-1786962991735",
+      "type": "animated",
+      "data": {
+        "kind": "flow"
+      },
+      "style": {
+        "stroke": "#008300",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-sales-agent-1786971307030-end-1786962991735-1786962991735",
+      "source": "agent-sales-agent-1786971307030",
+      "target": "end-1786962991735-1786962991735",
+      "type": "animated",
+      "data": {
+        "kind": "flow"
+      },
+      "style": {
+        "stroke": "#008300",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-follow-up-agent-1786971419428-end-1786962991735-1786962991735",
+      "source": "agent-follow-up-agent-1786971419428",
+      "target": "end-1786962991735-1786962991735",
+      "type": "animated",
+      "data": {
+        "kind": "flow"
+      },
+      "style": {
+        "stroke": "#008300",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-human-agent-1786971438329-end-1786962991735-1786962991735",
+      "source": "agent-human-agent-1786971438329",
+      "target": "end-1786962991735-1786962991735",
+      "type": "animated",
+      "data": {
+        "kind": "flow"
+      },
+      "style": {
+        "stroke": "#008300",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-negotiation-agent-1786971406795-end-1786962991735-1786962991735",
+      "source": "agent-negotiation-agent-1786971406795",
+      "target": "end-1786962991735-1786962991735",
+      "type": "animated",
+      "data": {
+        "kind": "flow"
+      },
+      "style": {
+        "stroke": "#008300",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-demo-agent-1786971399220-end-1786962991735-1786962991735",
+      "source": "agent-demo-agent-1786971399220",
+      "target": "end-1786962991735-1786962991735",
+      "type": "animated",
+      "data": {
+        "kind": "flow"
+      },
+      "style": {
+        "stroke": "#008300",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-sales-agent-1786971307030-tool-subscription-search-1787120749756",
+      "source": "agent-sales-agent-1786971307030",
+      "target": "tool-subscription-search-1787120749756",
+      "type": "animated",
+      "data": {
+        "kind": "uses-tool"
+      },
+      "style": {
+        "stroke": "#eb6834",
+        "strokeWidth": 1.5,
+        "strokeDasharray": "4 4"
+      }
+    },
+    {
+      "id": "reactflow__edge-agent-negotiation-agent-1786971406795-tool-subscription-search-1787120749756",
+      "source": "agent-negotiation-agent-1786971406795",
+      "target": "tool-subscription-search-1787120749756",
+      "type": "animated",
+      "data": {
+        "kind": "uses-tool"
+      },
+      "style": {
+        "stroke": "#eb6834",
+        "strokeWidth": 1.5,
+        "strokeDasharray": "4 4"
+      }
+    }
+  ],
+  "resources": {
+    "agents": [],
+    "tools": [],
+    "prompts": [],
+    "llmProfiles": []
+  }
+}
